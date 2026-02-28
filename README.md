@@ -10,5 +10,5 @@ A Wordle clone written in C
 
 ## Gameplay
 - There are 6 opportunities to guess
-- Green letters are represented by parentheses: `()`, yellow letters are curly braces: `{}`, and gray letters are square braces: `[]`
+- If not compiled in ANSI mode, green letters are represented by square brackets: `[]`, yellow letters are curly braces: `{}`, and gray letters are parentheses: `[]`
 

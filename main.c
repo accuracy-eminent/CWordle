@@ -2,6 +2,23 @@
 #include <stdlib.h>
 #include <time.h>
 
+#ifdef USE_ANSI
+#define YELLOW_OPEN  "\033[33m"
+#define GREEN_OPEN "\033[32m"
+#define GRAY_OPEN ""
+#define RESET "\033[0m"
+#define YELLOW_CLOSE RESET
+#define GREEN_CLOSE RESET
+#define GRAY_CLOSE RESET
+#else
+#define YELLOW_OPEN "{"
+#define GREEN_OPEN "["
+#define GRAY_OPEN "("
+#define YELLOW_CLOSE "}"
+#define GREEN_CLOSE "]"
+#define GRAY_CLOSE ")"
+#endif
+
 #define BUF_LEN 8
 #define WORD_LEN 5
 #define NUM_GUESS 6
@@ -36,24 +53,24 @@ void print_guess(game_state_t *state)
 {
     for(int i = 0; i < WORD_LEN; i++)
     {
-        char open_char, close_char;
+        char *open_str, *close_str;
         switch(state->status[i])
         {
             case 'y':
-                open_char = '{';
-                close_char = '}';
+                open_str = YELLOW_OPEN;
+                close_str = YELLOW_CLOSE;
                 break;
             case 'g':
-                open_char = '[';
-                close_char = ']';
+                open_str = GREEN_OPEN;
+                close_str = GREEN_CLOSE;
                 break;
             default:
-                open_char = '(';
-                close_char = ')';
+                open_str = GRAY_OPEN;
+                close_str = GRAY_CLOSE;
         }
-        putchar(open_char);
+        printf(open_str);
         putchar(state->guess[i]);
-        putchar(close_char);
+        printf(close_str);
     }
     putchar('\n');
 }
@@ -133,7 +150,7 @@ int main(void)
             }
             printf("----\n");
         }
-        printf("Puzzle %ssolved with %d guesses remaining.\n", state.remain_guess ? "": "not ", state.remain_guess);
+        printf("Puzzle %ssolved with %d guesses remaining.\n", state.solved ? "": "not ", state.remain_guess);
         printf("The word was: %s\n", state.ans);
         printf("Play again (y/n)? ");
         char buf[BUF_LEN];

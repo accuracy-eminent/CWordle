@@ -1,6 +1,6 @@
 # Define variables
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -pedantic -std=c99 -g
+CFLAGS = -Wall -Wextra -Werror -pedantic -std=c99 -g -DUSE_ANSI
 TARGET = cwordle
 SRCS = $(wildcard *.c)
 OBJS = $(SRCS:.c=.o)
